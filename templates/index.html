@@ -9,13 +9,24 @@
 </head>
 <body>
     <div>
-        <h1>Welcome to the Great Number Game!</h1>
+        <h1>Welcome to Yost's Great Number Game!</h1>
         <p>I am thinking of a number between 1 and 100</p>
         <p>Take a guess!</p>
-        <div>Two low!</div>
-            {{ result_of_guess }}
+        {%  if session.display_result == "high": %}
+                <div class='badguess'>Two High!!</div>
+        {%  elif session.display_result == "low": %}
+                <div class='badguess'>Two Low!!</div>
+        {%  elif session.display_result == "correct": %}
+                <div class='correct'>
+                    <h2>{{ session['guessit'] }} was the Number!</h2>
+                    <a href="/reset"><button>Play Again?</button></a>
+                </div>
+        {%  else: %}
+                <div></div>
+        {%  endif %}
+
         <form action='/check' method='post'>
-            <input type='number' name='number'>
+            <input type='number' name='guess'>
             <input type='submit' value='Submit'>
         </form>
     </div>
